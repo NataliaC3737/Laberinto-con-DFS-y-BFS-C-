@@ -1,6 +1,8 @@
-#include <iostream>
-#include <vector>
-#include "laberinto.h"
+#include <iostream> // E/S estándar
+#include <vector>   // Vectores
+#include <queue>    // Cola (usada en BFS)
+#include <climits>  // Valor máximo de entero (usado en BFS)
+#include "laberinto.h" // Encabezado
 
 void definirLaberinto(int n, std::vector<std::vector<int>>& laberinto) {
     // Crear una matriz de n x n inicializada con ceros
@@ -50,26 +52,77 @@ void mostrarLaberinto(std::vector<std::vector<int>>& laberinto) {
     }
 }
 
-void resolverLaberintoBFS() {
-    std::vector<std::vector<int>> laberinto;
-    int n = 10; // Cantidad de nodos del laberinto (se puede ajustar según sea necesario)
-    definirLaberinto(n, laberinto);
+// Función para la búsqueda en amplitud (BFS)
+void BFS(std::vector<std::vector<int>>& laberinto, int source) {
+    // Vector para almacenar el estado de los nodos (NO_VISITADO = 0, VISITADO = 1)
+    std::vector<int> estado(laberinto.size(), 0);
 
-    // Implementar la lógica para resolver el laberinto usando BFS
-    // ...
+    // Vector para almacenar la distancia desde el nodo fuente a cada nodo del grafo
+    std::vector<int> distancia(laberinto.size(), INT_MAX);
 
-    std::cout << "Laberinto resuelto usando BFS:" << std::endl;
-    mostrarLaberinto(laberinto);
+    // Vector para almacenar el padre de cada nodo
+    std::vector<int> padre(laberinto.size(), -1);
+
+    estado[source] = 1; // Marcar el nodo fuente como visitado
+    distancia[source] = 0; // Distancia desde el nodo fuente hasta él mismo es 0
+    padre[source] = -1; // El nodo fuente no tiene un padre
+
+    std::queue<int> Q; // Crear una cola para el recorrido BFS
+    Q.push(source); // Insertar el nodo fuente en la cola
+
+    while (!Q.empty()) {
+        int u = Q.front();
+        Q.pop();
+
+        for (int v = 0; v < laberinto.size(); v++) {
+            // Si hay una conexión entre u y v, y v no ha sido visitado
+            if (laberinto[u][v] == 1 && estado[v] == 0) {
+                estado[v] = 1; // Marcar el nodo v como visitado
+                distancia[v] = distancia[u] + 1; // Actualizar la distancia a v desde el nodo fuente
+                padre[v] = u; // Establecer el padre de v como u
+                Q.push(v); // Agregar v a la cola para explorar sus nodos adyacentes
+            }
+        }
+    }
 }
 
+// Función para la búsqueda en profundidad (DFS)
+void DFS(std::vector<std::vector<int>>& laberinto, int u, std::vector<bool>& vst) {
+    vst[u] = true; // Marcar el nodo actual como visitado
+
+    // Recorrer todos los nodos adyacentes a u
+    for (int v = 0; v < laberinto.size(); v++) {
+        // Si hay una conexión entre u y v, y v no ha sido visitado
+        if (laberinto[u][v] == 1 && !vst[v]) {
+            DFS(laberinto, v, vst); // Llamada recursiva para explorar el nodo v
+        }
+    }
+}
+
+// Función para resolver el laberinto usando BFS
+void resolverLaberintoBFS() {
+    std::vector<std::vector<int>> laberinto;
+    int n = 6; // Ajusta el tamaño de la matriz según sea necesario
+    definirLaberinto(n, laberinto); // Crear la matriz de adyacencia del laberinto
+
+    int inicio = 0; // Nodo de inicio
+    BFS(laberinto, inicio); // Resolver el laberinto usando BFS
+
+    std::cout << "Laberinto resuelto usando BFS:" << std::endl;
+    mostrarLaberinto(laberinto); // Mostrar el laberinto resuelto por consola
+}
+
+// Función para resolver el laberinto usando DFS
 void resolverLaberintoDFS() {
     std::vector<std::vector<int>> laberinto;
-    int n = 10; // Cantidad de nodos del laberinto (se puede ajustar según sea necesario)
-    definirLaberinto(n, laberinto);
+    int n = 6; // Ajusta el tamaño de la matriz según sea necesario
+    definirLaberinto(n, laberinto); // Crear la matriz de adyacencia del laberinto
 
-    // Implementar la lógica para resolver el laberinto usando DFS
-    // ...
+    std::vector<bool> visitado(laberinto.size(), false); // Vector de nodos visitados para DFS
+
+    int inicio = 0; // Nodo de inicio
+    DFS(laberinto, inicio, visitado); // Resolver el laberinto usando DFS
 
     std::cout << "Laberinto resuelto usando DFS:" << std::endl;
-    mostrarLaberinto(laberinto);
+    mostrarLaberinto(laberinto); // Mostrar el laberinto resuelto por consola
 }
