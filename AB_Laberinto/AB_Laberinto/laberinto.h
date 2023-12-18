@@ -10,10 +10,10 @@ void definirLaberinto(int n, std::vector<std::vector<int>>& laberinto);
 void mostrarLaberinto(std::vector<std::vector<int>>& laberinto);
 
 // Función para resolver el laberinto usando BFS
-void resolverLaberintoBFS();
+void resolverLaberintoBFS(std::vector<std::vector<int>>& laberinto);
 
 // Función para resolver el laberinto usando DFS
-void resolverLaberintoDFS();
+void resolverLaberintoDFS(std::vector<std::vector<int>>& laberinto);
 
 #endif /* LABERINTO_H */
 

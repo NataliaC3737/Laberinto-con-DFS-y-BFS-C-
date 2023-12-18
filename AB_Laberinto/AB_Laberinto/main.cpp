@@ -13,13 +13,18 @@ int main() {
     std::cout << "2. DFS" << std::endl;
     std::cin >> opcion;
 
+    std::vector<std::vector<int>> laberinto; // Matriz de adyacencia para representar el laberinto
+    int n = 10; // Tamaño de la matriz (ajústalo según el tamaño de tu laberinto)
+    definirLaberinto(n, laberinto); // Definir el laberinto según la estructura
+    mostrarLaberinto(laberinto);
+
     if (opcion == 1) {
         std::cout << "Resolviendo el laberinto usando BFS..." << std::endl;
-        resolverLaberintoBFS();
+        resolverLaberintoBFS(laberinto); // Resolver el laberinto usando BFS
     }
     else if (opcion == 2) {
         std::cout << "Resolviendo el laberinto usando DFS..." << std::endl;
-        resolverLaberintoDFS();
+        resolverLaberintoDFS(laberinto); // Resolver el laberinto usando DFS
     }
     else {
         std::cout << "Opción no válida. Por favor, elige 1 o 2." << std::endl;
@@ -27,3 +32,4 @@ int main() {
 
     return 0;
 }
+

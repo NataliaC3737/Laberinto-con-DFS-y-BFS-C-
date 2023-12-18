@@ -1,7 +1,7 @@
 #include <iostream> // E/S estándar
-#include <vector>   // Vectores
-#include <queue>    // Cola (usada en BFS)
-#include <climits>  // Valor máximo de entero (usado en BFS)
+#include <vector> // Vectores
+#include <queue> // Cola (usada en BFS)
+#include <stack> // Fila (usada en DFS)
 #include "laberinto.h" // Encabezado
 
 void definirLaberinto(int n, std::vector<std::vector<int>>& laberinto) {
@@ -52,77 +52,53 @@ void mostrarLaberinto(std::vector<std::vector<int>>& laberinto) {
     }
 }
 
-// Función para la búsqueda en amplitud (BFS)
-void BFS(std::vector<std::vector<int>>& laberinto, int source) {
-    // Vector para almacenar el estado de los nodos (NO_VISITADO = 0, VISITADO = 1)
-    std::vector<int> estado(laberinto.size(), 0);
+// Función para resolver el laberinto usando BFS
+void resolverLaberintoBFS(std::vector<std::vector<int>>& laberinto) {
+    std::queue<int> cola;
+    std::vector<bool> visitado(laberinto.size(), false); // Vector para marcar nodos visitados
+    int inicio = 0; // Nodo de inicio es el nodo 1
 
-    // Vector para almacenar la distancia desde el nodo fuente a cada nodo del grafo
-    std::vector<int> distancia(laberinto.size(), INT_MAX);
+    cola.push(inicio); // Agregar el nodo de inicio a la cola
+    visitado[inicio] = true; // Marcar el nodo de inicio como visitado
 
-    // Vector para almacenar el padre de cada nodo
-    std::vector<int> padre(laberinto.size(), -1);
+    std::cout << "Recorrido del laberinto usando BFS:" << std::endl;
 
-    estado[source] = 1; // Marcar el nodo fuente como visitado
-    distancia[source] = 0; // Distancia desde el nodo fuente hasta él mismo es 0
-    padre[source] = -1; // El nodo fuente no tiene un padre
+    while (!cola.empty()) {
+        int nodoActual = cola.front(); // Obtener el nodo actual de la cola
+        cola.pop();
 
-    std::queue<int> Q; // Crear una cola para el recorrido BFS
-    Q.push(source); // Insertar el nodo fuente en la cola
+        std::cout << nodoActual + 1 << " "; // Mostrar el nodo actual (se suma 1 para ajustar el índice)
 
-    while (!Q.empty()) {
-        int u = Q.front();
-        Q.pop();
-
-        for (int v = 0; v < laberinto.size(); v++) {
-            // Si hay una conexión entre u y v, y v no ha sido visitado
-            if (laberinto[u][v] == 1 && estado[v] == 0) {
-                estado[v] = 1; // Marcar el nodo v como visitado
-                distancia[v] = distancia[u] + 1; // Actualizar la distancia a v desde el nodo fuente
-                padre[v] = u; // Establecer el padre de v como u
-                Q.push(v); // Agregar v a la cola para explorar sus nodos adyacentes
+        // Recorrer los nodos adyacentes al nodo actual
+        for (int i = 0; i < laberinto[nodoActual].size(); ++i) {
+            if (laberinto[nodoActual][i] != 0 && !visitado[i]) { // Si hay conexión y el nodo no ha sido visitado
+                cola.push(i); // Agregar el nodo adyacente a la cola
+                visitado[i] = true; // Marcar el nodo adyacente como visitado
             }
         }
     }
+    std::cout << std::endl;
 }
 
-// Función para la búsqueda en profundidad (DFS)
-void DFS(std::vector<std::vector<int>>& laberinto, int u, std::vector<bool>& vst) {
-    vst[u] = true; // Marcar el nodo actual como visitado
+// Función para resolver el laberinto usando DFS (recursivo)
+void dfsRecursivo(std::vector<std::vector<int>>& laberinto, std::vector<bool>& visitado, int nodoActual) {
+    visitado[nodoActual] = true; // Marcar el nodo actual como visitado
+    std::cout << nodoActual + 1 << " "; // Mostrar el nodo actual (se suma 1 para ajustar el índice)
 
-    // Recorrer todos los nodos adyacentes a u
-    for (int v = 0; v < laberinto.size(); v++) {
-        // Si hay una conexión entre u y v, y v no ha sido visitado
-        if (laberinto[u][v] == 1 && !vst[v]) {
-            DFS(laberinto, v, vst); // Llamada recursiva para explorar el nodo v
+    // Recorrer los nodos adyacentes al nodo actual
+    for (int i = 0; i < laberinto[nodoActual].size(); ++i) {
+        if (laberinto[nodoActual][i] != 0 && !visitado[i]) { // Si hay conexión y el nodo no ha sido visitado
+            dfsRecursivo(laberinto, visitado, i); // Llamada recursiva para el nodo adyacente
         }
     }
 }
 
-// Función para resolver el laberinto usando BFS
-void resolverLaberintoBFS() {
-    std::vector<std::vector<int>> laberinto;
-    int n = 6; // Ajusta el tamaño de la matriz según sea necesario
-    definirLaberinto(n, laberinto); // Crear la matriz de adyacencia del laberinto
+// Función wrapper para llamar al DFS recursivo
+void resolverLaberintoDFS(std::vector<std::vector<int>>& laberinto) {
+    std::vector<bool> visitado(laberinto.size(), false); // Vector para marcar nodos visitados
+    int inicio = 0; // Nodo de inicio es el nodo 1
 
-    int inicio = 0; // Nodo de inicio
-    BFS(laberinto, inicio); // Resolver el laberinto usando BFS
-
-    std::cout << "Laberinto resuelto usando BFS:" << std::endl;
-    mostrarLaberinto(laberinto); // Mostrar el laberinto resuelto por consola
-}
-
-// Función para resolver el laberinto usando DFS
-void resolverLaberintoDFS() {
-    std::vector<std::vector<int>> laberinto;
-    int n = 6; // Ajusta el tamaño de la matriz según sea necesario
-    definirLaberinto(n, laberinto); // Crear la matriz de adyacencia del laberinto
-
-    std::vector<bool> visitado(laberinto.size(), false); // Vector de nodos visitados para DFS
-
-    int inicio = 0; // Nodo de inicio
-    DFS(laberinto, inicio, visitado); // Resolver el laberinto usando DFS
-
-    std::cout << "Laberinto resuelto usando DFS:" << std::endl;
-    mostrarLaberinto(laberinto); // Mostrar el laberinto resuelto por consola
+    std::cout << "Recorrido del laberinto usando DFS:" << std::endl;
+    dfsRecursivo(laberinto, visitado, inicio);
+    std::cout << std::endl;
 }
