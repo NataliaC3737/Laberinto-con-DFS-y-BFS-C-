@@ -16,7 +16,6 @@ int main() {
     std::vector<std::vector<int>> laberinto; // Matriz de adyacencia para representar el laberinto
     int n = 10; // Tamaño de la matriz (ajústalo según el tamaño de tu laberinto)
     definirLaberinto(n, laberinto); // Definir el laberinto según la estructura
-    mostrarLaberinto(laberinto);
 
     if (opcion == 1) {
         std::cout << "Resolviendo el laberinto usando BFS..." << std::endl;
