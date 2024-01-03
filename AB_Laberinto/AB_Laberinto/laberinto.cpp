@@ -2,6 +2,7 @@
 #include <vector> // Vectores
 #include <queue> // Cola (usada en BFS)
 #include <stack> // Fila (usada en DFS)
+#include <string> // Cadena de texto (interfaz)
 #include "laberinto.h" // Encabezado
 
 void definirLaberinto(int n, std::vector<std::vector<int>>& laberinto) {
@@ -30,19 +31,40 @@ void definirLaberinto(int n, std::vector<std::vector<int>>& laberinto) {
     laberinto[5][4] = 3; // Conexión inversa de nodo 6 a nodo 5
 }
 
-void mostrarLaberinto(std::vector<std::vector<int>>& laberinto) {
-    // Mostrar la matriz de adyacencia con nodos marcados
-    for (int i = 0; i < laberinto.size(); i++) {
-        for (int j = 0; j < laberinto[i].size(); j++) {
-            if (laberinto[i][j] == 2) {
-                std::cout << "I "; // Marcar nodo de inicio
-            }
-            else if (laberinto[i][j] == 3) {
-                std::cout << "F "; // Marcar nodo final
-            }
-            else {
-                std::cout << laberinto[i][j] << " ";
-            }
+void mostrarLaberinto(std::vector<std::vector<std::string>>& matriz) {
+    const int filas = 20;
+    const int columnas = 21;
+
+    // Crear una matriz de objetos Valor de 21x21
+    std::vector<std::vector<std::string>> interfaz(filas, std::vector<std::string>(columnas, ""));
+
+    // Asignar los valores especificados a la matriz
+    interfaz[0] =  { "0 0 0 0 0       0 0 0 0 0 0 0 0 0 0 0 0 0" };
+    interfaz[1] =  { "0       0                       0       0" };
+    interfaz[2] =  { "0       0                       0       0" };
+    interfaz[3] =  { "0       0                       0       0" };
+    interfaz[4] =  { "0       0 0 0 0 0 0 0 0 0       0       0" };
+    interfaz[5] =  { "0                       0       0       0" };
+    interfaz[6] =  { "0                       0       0       0" };
+    interfaz[7] =  { "0                       0       0       0" };
+    interfaz[8] =  { "0       0 0 0 0 0       0       0       0" };
+    interfaz[9] =  { "0               0               0       0" };
+    interfaz[10] = { "0               0               0       0" };
+    interfaz[11] = { "0               0               0       0" };
+    interfaz[12] = { "0       0       0 0 0 0 0 0 0 0 0       0" };
+    interfaz[13] = { "0       0                               0" };
+    interfaz[14] = { "0       0                               0" };
+    interfaz[15] = { "0       0                               0" };
+    interfaz[16] = { "0       0       0 0 0 0 0 0 0 0 0 0 0 0 0" };
+    interfaz[17] = { "0       0                               0" };
+    interfaz[18] = { "0       0                               0" };
+    interfaz[19] = { "0       0                               0" };
+    interfaz[20] = { "0 0 0 0 0       0 0 0 0 0 0 0 0 0 0 0 0 0" };
+
+    // Imprimir la matriz
+    for (int i = 0; i < filas; ++i) {
+        for (int j = 0; j < columnas; ++j) {
+            std::cout << interfaz[i][j] << " ";
         }
         std::cout << std::endl;
     }

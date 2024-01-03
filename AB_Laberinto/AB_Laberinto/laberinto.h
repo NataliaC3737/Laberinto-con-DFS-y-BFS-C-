@@ -7,7 +7,7 @@
 void definirLaberinto(int n, std::vector<std::vector<int>>& laberinto);
 
 // Función para mostrar el laberinto con nodos explorados
-void mostrarLaberinto(std::vector<std::vector<int>>& laberinto);
+void mostrarLaberinto(std::vector<std::vector<std::string>>& matriz);
 
 // Función para resolver el laberinto usando BFS
 void resolverLaberintoBFS(std::vector<std::vector<int>>& laberinto);
