@@ -4,6 +4,7 @@
 // Depurar programa: F5 o menú Depurar > Iniciar depuración
 
 #include <iostream>
+#include <chrono> // Medir el tiempo de resolucion
 #include "laberinto.h" // Incluimos el archivo de funciones del laberinto
 
 int main() {
@@ -24,9 +25,35 @@ int main() {
 
     std::cout << "-------------------------Soluciones--------------------------" << std::endl;
     std::cout << " " << std::endl;
-    resolverLaberintoBFS(laberinto); // Resolver el laberinto usando BFS
+
+    // Medir tiempo de BFS
+    auto startBFS = std::chrono::high_resolution_clock::now();
+    resolverLaberintoBFS(laberinto);
     std::cout << " " << std::endl;
-    resolverLaberintoDFS(laberinto); // Resolver el laberinto usando DFS
+    auto finishBFS = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsedBFS = finishBFS - startBFS;
+    std::cout << "Tiempo de BFS: " << elapsedBFS.count() << " segundos" << std::endl;
+    std::cout << " " << std::endl;
+
+    // Medir tiempo de DFS
+    auto startDFS = std::chrono::high_resolution_clock::now();
+    resolverLaberintoDFS(laberinto);
+    std::cout << " " << std::endl;
+    auto finishDFS = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsedDFS = finishDFS - startDFS;
+    std::cout << "Tiempo de DFS: " << elapsedDFS.count() << " segundos" << std::endl;
+    std::cout << " " << std::endl;
+
+    // Imprimir el resultado
+    if (elapsedBFS.count() < elapsedDFS.count()) {
+        std::cout << "BFS gana en tiempo." << std::endl;
+    }
+    else if (elapsedBFS.count() > elapsedDFS.count()) {
+        std::cout << "DFS gana en tiempo." << std::endl;
+    }
+    else {
+        std::cout << "Ambos algoritmos tardan el mismo tiempo" << std::endl;
+    }
     std::cout << " " << std::endl;
 
     std::cout << "--------------------------Laberinto--------------------------" << std::endl;
