@@ -29,19 +29,27 @@ int main() {
 
     // Medir tiempo de BFS
     auto startBFS = std::chrono::high_resolution_clock::now();
+
     resolverLaberintoBFS(laberinto);
     std::cout << " " << std::endl;
+
     auto finishBFS = std::chrono::high_resolution_clock::now();
+
     std::chrono::duration<double> elapsedBFS = finishBFS - startBFS;
+
     std::cout << "Tiempo de BFS: " << elapsedBFS.count() << " segundos" << std::endl;
     std::cout << " " << std::endl;
 
     // Medir tiempo de DFS
     auto startDFS = std::chrono::high_resolution_clock::now();
+
     resolverLaberintoDFS(laberinto);
     std::cout << " " << std::endl;
+
     auto finishDFS = std::chrono::high_resolution_clock::now();
+
     std::chrono::duration<double> elapsedDFS = finishDFS - startDFS;
+
     std::cout << "Tiempo de DFS: " << elapsedDFS.count() << " segundos" << std::endl;
     std::cout << " " << std::endl;
 
