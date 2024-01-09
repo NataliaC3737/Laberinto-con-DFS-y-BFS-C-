@@ -105,7 +105,7 @@ void resolverLaberintoBFS(std::vector<std::vector<int>>& laberinto) {
 // Función para resolver el laberinto usando DFS (recursivo)
 bool dfsRecursivo(std::vector<std::vector<int>>& laberinto, std::vector<bool>& visitado, int nodoActual, int& nodosRecorridos) {
     visitado[nodoActual] = true; // Marcar el nodo actual como visitado
-    std::cout << nodoActual << " "; // Mostrar el nodo actual (se suma 1 para ajustar el índice)
+    std::cout << nodoActual << " "; // Mostrar el nodo actual
     nodosRecorridos++; // Incrementar contador de nodos recorridos
 
     if (nodoActual == 5) { // Si se encuentra el nodo 5, detener la búsqueda
