@@ -8,10 +8,11 @@
 #include "laberinto.h" // Incluimos el archivo de funciones del laberinto
 
 int main() {
-    std::vector<std::vector<int>> laberinto; // Matriz de adyacencia para representar el laberinto
+    std::vector<std::vector<int>> laberinto; // Matriz de adyacencia para resolver el laberinto
     int n = 10; // Tamaño de la matriz (ajústalo según el tamaño de tu laberinto)
     definirLaberinto(n, laberinto); // Definir el laberinto según la estructura
-    std::vector<std::vector<std::string>> interfaz;
+
+    std::vector<std::vector<std::string>> interfaz; // Matriz de interfaz para representar el laberinto
 
     std::cout << "Bienvenido/a al laberinto" << std::endl;
     std::cout << " " << std::endl;
