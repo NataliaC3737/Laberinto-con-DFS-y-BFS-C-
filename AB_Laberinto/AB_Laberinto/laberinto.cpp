@@ -88,6 +88,11 @@ void resolverLaberintoBFS(std::vector<std::vector<int>>& laberinto) {
 
         std::cout << nodoActual << " "; // Mostrar el nodo actual (se suma 1 para ajustar el índice)
 
+        if (nodoActual == 5) { // Si se encuentra el nodo 5, detener la búsqueda
+            std::cout << std::endl;
+            return;
+        }
+
         // Recorrer los nodos adyacentes al nodo actual
         for (int i = 0; i < laberinto[nodoActual].size(); ++i) {
             if (laberinto[nodoActual][i] != 0 && !visitado[i]) { // Si hay conexión y el nodo no ha sido visitado
@@ -99,17 +104,28 @@ void resolverLaberintoBFS(std::vector<std::vector<int>>& laberinto) {
     std::cout << std::endl;
 }
 
+#include <iostream>
+#include <vector>
+
 // Función para resolver el laberinto usando DFS (recursivo)
-void dfsRecursivo(std::vector<std::vector<int>>& laberinto, std::vector<bool>& visitado, int nodoActual) {
+bool dfsRecursivo(std::vector<std::vector<int>>& laberinto, std::vector<bool>& visitado, int nodoActual) {
     visitado[nodoActual] = true; // Marcar el nodo actual como visitado
     std::cout << nodoActual << " "; // Mostrar el nodo actual (se suma 1 para ajustar el índice)
+
+    if (nodoActual == 5) { // Si se encuentra el nodo 5, detener la búsqueda
+        return true;
+    }
 
     // Recorrer los nodos adyacentes al nodo actual
     for (int i = 0; i < laberinto[nodoActual].size(); ++i) {
         if (laberinto[nodoActual][i] != 0 && !visitado[i]) { // Si hay conexión y el nodo no ha sido visitado
-            dfsRecursivo(laberinto, visitado, i); // Llamada recursiva para el nodo adyacente
+            if (dfsRecursivo(laberinto, visitado, i)) { // Llamada recursiva para el nodo adyacente
+                return true; // Si se encontró el nodo 5, terminar la recursión
+            }
         }
     }
+
+    return false;
 }
 
 // Función wrapper para llamar al DFS recursivo
@@ -118,6 +134,8 @@ void resolverLaberintoDFS(std::vector<std::vector<int>>& laberinto) {
     int inicio = 0; // Nodo de inicio es el nodo 1
 
     std::cout << "Recorrido del laberinto usando DFS: ";
-    dfsRecursivo(laberinto, visitado, inicio);
+    if (!dfsRecursivo(laberinto, visitado, inicio)) {
+        std::cout << "No se encontró el nodo 5." << std::endl;
+    }
     std::cout << std::endl;
 }
