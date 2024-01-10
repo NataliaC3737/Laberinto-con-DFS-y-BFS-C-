@@ -5,7 +5,8 @@
 
 #include <iostream>
 #include <chrono> // Medir el tiempo de resolucion
-#include "laberinto.h" // Incluimos el archivo de funciones del laberinto
+#include "laberinto.h" // Incluimos el archivo de las funciones de las interfaces
+#include "busqueda.h" // Incluimos el archivo de funciones de busqueda BFS y DFS
 
 int main() {
     std::vector<std::vector<int>> laberinto; // Matriz de adyacencia para resolver el laberinto
