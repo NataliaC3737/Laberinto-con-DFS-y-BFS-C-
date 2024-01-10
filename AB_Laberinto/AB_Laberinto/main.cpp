@@ -11,7 +11,6 @@
 int main() {
     std::vector<std::vector<int>> laberinto; // Matriz de adyacencia para resolver el laberinto
     int n = 10; // Tamaño de la matriz (ajústalo según el tamaño de tu laberinto)
-    definirLaberinto2(n, laberinto); // Definir el laberinto según la estructura
 
     std::vector<std::vector<std::string>> interfaz; // Matriz de interfaz para representar el laberinto
 
@@ -24,6 +23,23 @@ int main() {
     std::cout << "" << std::endl;
     std::cout << "El nodo (0) representa el inicio, y el nodo (5) el final." << std::endl;
     std::cout << " " << std::endl;
+
+    int eleccion;
+
+    std::cout << "Elige un laberinto (1 o 2): ";
+    std::cin >> eleccion;
+
+    if (eleccion == 1) {
+        definirLaberinto1(n, laberinto); // Definir el laberinto según la estructura
+        std::cout << " " << std::endl;
+    }
+    else if (eleccion == 2) {
+        definirLaberinto2(n, laberinto); // Definir el laberinto según la estructura
+        std::cout << " " << std::endl;
+    }
+    else {
+        std::cout << "Opción no válida." << std::endl;
+    }
 
     std::cout << "-------------------------Soluciones--------------------------" << std::endl;
     std::cout << " " << std::endl;
@@ -68,7 +84,16 @@ int main() {
 
     std::cout << "--------------------------Laberinto--------------------------" << std::endl;
     std::cout << " " << std::endl;
-    mostrarLaberinto1(interfaz);
+    if (eleccion == 1) {
+        mostrarLaberinto1(interfaz); // Imprimir interfaz 1
+    }
+    else if (eleccion == 2) {
+        mostrarLaberinto2(interfaz); // Imprimir interfaz 2
+    }
+    else {
+        std::cout << "Opción no válida." << std::endl;
+    }
+    
     
     return 0;
 }
