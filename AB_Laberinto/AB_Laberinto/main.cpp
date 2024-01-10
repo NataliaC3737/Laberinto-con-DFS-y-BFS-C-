@@ -11,7 +11,7 @@
 int main() {
     std::vector<std::vector<int>> laberinto; // Matriz de adyacencia para resolver el laberinto
     int n = 10; // Tamaño de la matriz (ajústalo según el tamaño de tu laberinto)
-    definirLaberinto(n, laberinto); // Definir el laberinto según la estructura
+    definirLaberinto2(n, laberinto); // Definir el laberinto según la estructura
 
     std::vector<std::vector<std::string>> interfaz; // Matriz de interfaz para representar el laberinto
 
@@ -68,7 +68,7 @@ int main() {
 
     std::cout << "--------------------------Laberinto--------------------------" << std::endl;
     std::cout << " " << std::endl;
-    mostrarLaberinto(interfaz);
+    mostrarLaberinto1(interfaz);
     
     return 0;
 }
