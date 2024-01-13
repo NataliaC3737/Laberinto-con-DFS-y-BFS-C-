@@ -2,14 +2,14 @@
   "version": 3,
   "cmakeMinimumRequired": {
     "major": 3,
-    "minor": 10,
-    "patch": 0
+    "minor": 21,
+    "patch": 1
   },
   "configurePresets": [
     {
       "name": "Debug",
-      "description": "Configuración de depuración",
-      "generator": "Visual Studio 16 2019",
+      "description": "Debug build",
+      "generator": "Visual Studio 17 2022",
       "binaryDir": "${sourceDir}/build/debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
@@ -17,8 +17,8 @@
     },
     {
       "name": "Release",
-      "description": "Configuración de lanzamiento",
-      "generator": "Visual Studio 16 2019",
+      "description": "Release build",
+      "generator": "Visual Studio 17 2022",
       "binaryDir": "${sourceDir}/build/release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
@@ -26,3 +26,4 @@
     }
   ]
 }
+
