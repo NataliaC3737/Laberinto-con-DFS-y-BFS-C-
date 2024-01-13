@@ -134,9 +134,16 @@
   <ItemGroup>
     <ClInclude Include="busqueda.h" />
     <ClInclude Include="laberinto.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AB_Laberinto.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CMakePresets.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
