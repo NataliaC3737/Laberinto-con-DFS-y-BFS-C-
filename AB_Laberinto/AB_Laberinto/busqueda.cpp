@@ -19,7 +19,7 @@ void resolverLaberintoBFS(std::vector<std::vector<int>>& laberinto) {
 
     while (!cola.empty()) {
         int nodoActual = cola.front(); // Obtener el nodo actual de la cola
-        cola.pop();
+        cola.pop(); // Borrar el elemento del frente
         nodosRecorridos++; // Incrementar contador de nodos recorridos
 
         std::cout << nodoActual << " "; // Mostrar el nodo actual (se suma 1 para ajustar el índice)
@@ -40,36 +40,44 @@ void resolverLaberintoBFS(std::vector<std::vector<int>>& laberinto) {
     }
 }
 
-// Función para resolver el laberinto usando DFS (recursivo)
-bool dfsRecursivo(std::vector<std::vector<int>>& laberinto, std::vector<bool>& visitado, int nodoActual, int& nodosRecorridos) {
-    visitado[nodoActual] = true; // Marcar el nodo actual como visitado
-    std::cout << nodoActual << " "; // Mostrar el nodo actual
-    nodosRecorridos++; // Incrementar contador de nodos recorridos
+// Función para resolver el laberinto usando DFS (con pila)
+bool dfsRecursivo(std::vector<std::vector<int>>& laberinto, int inicio, int& nodosRecorridos) {
+    std::vector<bool> visitado(laberinto.size(), false); // Vector para marcar nodos visitados
+    std::stack<int> pila; 
+    pila.push(inicio); // Iniciar la pila con el nodo de inicio
 
-    if (nodoActual == 5) { // Si se encuentra el nodo 5, detener la búsqueda
-        return true;
-    }
+    while (!pila.empty()) {
+        int nodoActual = pila.top(); // Obtiene el elemento superior (último elemento agregado) de la pila
+        pila.pop(); // Se elimina el elemento superior de la pila
 
-    // Recorrer los nodos adyacentes al nodo actual
-    for (int i = 0; i < laberinto[nodoActual].size(); ++i) {
-        if (laberinto[nodoActual][i] != 0 && !visitado[i]) { // Si hay conexión y el nodo no ha sido visitado
-            if (dfsRecursivo(laberinto, visitado, i, nodosRecorridos)) { // Llamada recursiva para el nodo adyacente
-                return true; // Si se encontró el nodo 5, terminar la recursión
+        if (!visitado[nodoActual]) {
+            visitado[nodoActual] = true; // Marcar el nodo actual como visitado
+            std::cout << nodoActual << " "; // Mostrar el nodo actual
+            nodosRecorridos++; // Incrementar contador de nodos recorridos
+
+            if (nodoActual == 5) { // Si se encuentra el nodo final, detener la búsqueda
+                return true;
+            }
+
+            // Empujar a la pila los nodos adyacentes no visitados
+            for (int i = laberinto[nodoActual].size() - 1; i >= 0; --i) {
+                if (laberinto[nodoActual][i] != 0 && !visitado[i]) {
+                    pila.push(i);
+                }
             }
         }
     }
 
-    return false;
+    return false; // No se encontró el nodo final
 }
 
-// Función wrapper para llamar al DFS recursivo
+// Función wrapper para llamar al DFS con pila
 void resolverLaberintoDFS(std::vector<std::vector<int>>& laberinto) {
-    std::vector<bool> visitado(laberinto.size(), false); // Vector para marcar nodos visitados
     int inicio = 0; // Nodo de inicio es el nodo 0
     int nodosRecorridos = 0; // Contador de nodos recorridos
 
-    std::cout << "Recorrido del laberinto usando DFS: ";
-    if (!dfsRecursivo(laberinto, visitado, inicio, nodosRecorridos)) {
+    std::cout << "Recorrido del laberinto usando DFS con pila: ";
+    if (!dfsRecursivo(laberinto, inicio, nodosRecorridos)) {
         std::cout << "No se encontró el nodo 5." << std::endl;
     }
     else {

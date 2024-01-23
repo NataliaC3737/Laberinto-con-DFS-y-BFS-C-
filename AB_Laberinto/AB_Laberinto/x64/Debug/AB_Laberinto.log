@@ -1,2 +1,5 @@
-﻿  laberinto.cpp
+﻿  busqueda.cpp
+C:\Users\Natalia\OneDrive\Escritorio\Laberinto-con-DFS-y-BFS-C-\AB_Laberinto\AB_Laberinto\busqueda.cpp(63,24): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+  main.cpp
+  Generando código...
   AB_Laberinto.vcxproj -> C:\Users\Natalia\OneDrive\Escritorio\Laberinto-con-DFS-y-BFS-C-\AB_Laberinto\x64\Debug\AB_Laberinto.exe

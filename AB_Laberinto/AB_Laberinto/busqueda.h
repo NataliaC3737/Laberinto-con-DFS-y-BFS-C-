@@ -7,7 +7,8 @@
 void resolverLaberintoBFS(std::vector<std::vector<int>>& laberinto);
 
 // Función para resolver el laberinto usando DFS (recursivo)
-bool dfsRecursivo(std::vector<std::vector<int>>& laberinto, std::vector<bool>& visitado, int nodoActual, int& nodosRecorridos);
+
+bool dfsRecursivo(std::vector<std::vector<int>>& laberinto, int inicio, int& nodosRecorridos);
 
 // Función para resolver el laberinto usando DFS
 void resolverLaberintoDFS(std::vector<std::vector<int>>& laberinto);
